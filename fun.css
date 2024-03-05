@@ -1,0 +1,372 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    background: #8CC461;
+    min-height: 100vh;
+    color: #FFF;
+}
+
+.container {
+    max-width: 700px;
+    position: relative;
+    margin: 0 auto;
+    padding-top: 1rem;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-transform: uppercase;
+    height: 150px;
+    border: 3px solid #FFF;
+    border-radius: 20px;
+    padding: 1rem 1.4rem 1rem 2rem;
+}
+
+.score_board {
+    display: flex;
+    gap: 25px;
+    width: 35%;
+}
+
+.score_title {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    width: 50%;
+    background-color: #FFF;
+    border-radius: 0.5rem;
+    color: black;
+    padding: 5px;
+}
+
+.comp_score,
+.player_score {
+    justify-self: flex-end;
+    font-size: 55px;
+    font-weight: 600;
+    color: black;
+}
+
+.game {
+    position: relative;
+    display: grid;
+    grid-template-areas:
+        "rock scissors"
+        "paper paper";
+    place-items: center;
+    height: 25rem;
+    padding: 2rem 4rem 0 4rem;
+}
+
+.game::before {
+    content: "";
+    position: absolute;
+    width: 80%;
+    height: 80%;
+    left: 28%;
+    top: 25%;
+    background: url("./images/triangle.png") no-repeat;
+    z-index: -1;
+}
+
+.choice_btn {
+    border: none;
+    outline: none;
+    background: none;
+    cursor: pointer;
+}
+
+.choice {
+    position: relative;
+    width: 7rem;
+    height: 7rem;
+    background: #fff;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+}
+
+.choice::before,
+.choice::after {
+    content: "";
+    position: absolute;
+    left: -15%;
+    top: -15%;
+    width: 130%;
+    height: 130%;
+    border-radius: 50%;
+    z-index: -1;
+}
+
+.choice.paper::before {
+    background: #FFA943;
+}
+
+.choice.scissors::before {
+    background: #BD00FF;
+}
+
+.choice.rock::before {
+    background: #0074B6;
+}
+
+.choice_btn[data-choice="paper"] {
+    grid-area: paper;
+}
+
+.choice_btn[data-choice="scissors"] {
+    grid-area: scissors;
+}
+
+.choice_btn[data-choice="rock"] {
+    grid-area: rock;
+}
+
+.results {
+    display: grid;
+    place-items: center;
+    grid-template-areas:
+        "your-title pc-title"
+        "you-picked pc-picked";
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.results_heading {
+    font-size: 1rem;
+    letter-spacing: 1.5px;
+    padding: 4rem 0 4rem;
+}
+
+.results_result {
+    min-width: 7rem;
+    min-height: 7rem;
+    border-radius: 50%;
+    z-index: -1;
+}
+
+.results_heading:first-of-type {
+    grid-area: your-title;
+}
+
+.results_heading:last-of-type {
+    grid-area: pc-title;
+}
+
+.results_result:first-of-type {
+    grid-area: you-picked;
+}
+
+.results_result:last-of-type {
+    grid-area: pc-picked;
+}
+
+.results.show_winner {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-areas:
+        "your-title . pc-title"
+        "you-picked result-winner pc-picked";
+}
+
+.winner .choice::after {
+    box-shadow: 0 0 0 20px #1da82b, 0 0 0 40px #1da82b90, 0 0 0 60px #2E9A2563;
+    animation: winner 1s ease infinite;
+}
+
+@keyframes winner {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.results_winner {
+    grid-area: result-winner;
+    display: grid;
+    place-items: center;
+}
+
+.results_text {
+    font-size: 2rem;
+    font-weight: 600;
+    letter-spacing: 3px;
+}
+
+.sub_text {
+    font-size: 1.2rem;
+    font-weight: 500;
+    letter-spacing: 2px;
+    margin: 10px;
+}
+
+.play_again {
+    background: #FFF;
+    border: 2px solid #FFF;
+    outline: none;
+    border-radius: 0.6rem;
+    color: black;
+    padding: 0.5rem 2rem;
+    font-family: inherit;
+    cursor: pointer;
+}
+
+.close {
+    background-image: url("./images/Red.png");
+    background-repeat: no-repeat;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: 53%;
+    right: 2%;
+    z-index: 1;
+    border-radius: 50%;
+    cursor: pointer;
+    display: none;
+}
+
+.rules {
+    background-color: #004429;
+    color: #FFF;
+    height: 50%;
+    width: 20%;
+    border: 7px solid #FFF;
+    border-radius: 2rem;
+    padding: 15px 10px;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    right: 3%;
+    top: 40%;
+    display: none;
+}
+
+.rules>h4 {
+    font-size: 2rem;
+    font-weight: 500;
+    text-align: center;
+    height: 15%;
+}
+
+.rules_list {
+    font-size: 0.8rem;
+    height: 85%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.rules_list>div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: full;
+    gap: 1rem;
+}
+
+.pointer {
+    width: 10%;
+}
+
+.trophy_screen {
+    height: 100vh;
+    background: #8CC461;
+    color: #FFF;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    display: none;
+}
+
+.trophy {
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    align-items: center;
+    padding-bottom: 2rem;
+    height: 55%;
+    position: relative;
+    width: 100%;
+}
+
+.stars {
+    position: absolute;
+}
+
+.hurray_msg {
+    font-size: 5rem;
+    letter-spacing: 9px;
+    height: 15%;
+}
+
+.won_msg {
+    font-size: 2.5rem;
+    letter-spacing: 4px;
+    height: 10%;
+}
+
+.winPlayAgnBtn {
+    border: 2px solid #FFF;
+    background-color: #FFF;
+    border-radius: 5px;
+    height: 2.5rem;
+    color: black;
+    font-size: 0.8rem;
+    letter-spacing: 1.5px;
+    width: 12rem;
+    margin-top: 1rem;
+    cursor: pointer;
+}
+
+.winPlayAgnBtn:hover,
+.play_again:hover {
+    background-color: wheat;
+}
+
+footer {
+    position: fixed;
+    bottom: 2%;
+    right: 2%;
+}
+
+footer>button {
+    border: 2px solid #FFF;
+    background: transparent;
+    width: 7rem;
+    height: 2.5rem;
+    border-radius: 0.5rem;
+    color: #FFF;
+    font-weight: 600;
+    font-size: 1rem;
+    letter-spacing: 2px;
+    margin-left: 1rem;
+    cursor: pointer;
+}
+
+.rules_btn:hover,
+.next_btn:hover {
+    background: #1da82b90;
+}
+
+.next_btn {
+    display: none;
+}
+
+.hidden {
+    display: none;
+}
